@@ -70,7 +70,7 @@ export TCVERSION1="$(${CROSS_COMPILE}gcc --version | head -1 |\
 awk -F '(' '{print $2}' | awk '{print tolower($1)}')"
 export TCVERSION2="$(${CROSS_COMPILE}gcc --version | head -1 |\
 awk -F ')' '{print $2}' | awk '{print tolower($1)}')"
-export ZIPNAME="${KERNELNAME}-${DEVICE}-$(date +%Y%m%d-%H%M).zip"
+export ZIPNAME="${KERNELNAME}-SAR-${DEVICE}-$(date +%Y%m%d-%H%M).zip"
 export FINAL_ZIP="${ZIP_DIR}/${ZIPNAME}"
 
 [ ! -d "${ZIP_DIR}" ] && mkdir -pv ${ZIP_DIR}
@@ -145,14 +145,15 @@ time="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) seconds."
 
 curl -F chat_id=$CHAT_ID -F document=@"${ZIP_DIR}/$ZIPNAME" -F caption="
 ♔♔♔♔♔♔♔BUILD-DETAILS♔♔♔♔♔♔♔
-  Make-Type  : HMP(non-SAR)
+  Make-Type  : HMP(SAR ONLY)
 ⌚ Build-Time : $time
 $(git log --pretty=format:'%h : %s' -5)" https://api.telegram.org/bot$BOT_API_KEY/sendDocument
 
 function transfer() {
-	op1=$(curl --upload-file $ZIP_DIR/$ZIPNAME https://transfer.sh/)
+	#Uncomment this when transfer.sh server is up
+	#op1=$(curl --upload-file $ZIP_DIR/$ZIPNAME https://transfer.sh/)
 	op2=$(curl -F file=@$ZIP_DIR/$ZIPNAME https://0x0.st)
-	echo "transfer.sh -> "$op1
+	#echo "transfer.sh -> "$op1
 	echo "0x0.st ------> "$op2
 }
 
