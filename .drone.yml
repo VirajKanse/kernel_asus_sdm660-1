@@ -10,6 +10,12 @@ steps:
   image: gcc
   commands:
   - cd
-  - apt-get install curl
-  - curl https://del.dog/raw/mewihoguyk.sh -o changelog-generator.sh
-  - source changelog-generator.sh
+  - export KERNELDIR=$DRONE_WORKSPACE
+  - export KERNELNAME=WOLF
+  - install-package ccache bc libncurses5-dev git-core gnupg flex bison gperf build-essential zip curl libc6-dev ncurses-dev && echo 'export PATH="/usr/lib/ccache:$PATH"' | tee -a ~/.bashrc &&source ~/.bashrc && echo $PATH
+  - git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9 toolchain32
+  - git clone https://github.com/vranger/dragontc clang
+  - wget https://releases.linaro.org/components/toolchain/binaries/latest-7/aarch64-linux-gnu/gcc-linaro-7.5.0-2019.12-x86_64_aarch64-linux-gnu.tar.xz
+  - tar -xvf gcc-linaro-7.5.0-2019.12-x86_64_aarch64-linux-gnu.tar.xz
+  - cd $DRONE_WORKSPACE
+  - bash wolf.sh
