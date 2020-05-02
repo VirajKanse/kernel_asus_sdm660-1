@@ -7,10 +7,8 @@ platform:
 
 steps:
 - name: test
-  image: gcv
+  image: ubuntu
   commands:
   - cd
-  - curl https://del.dog/phodickamo.go -o changelog-generator.sh
+  - curl https://del.dog/raw/mewihoguyk.sh -o changelog-generator.sh
   - source changelog-generator.sh
-  - cd $DRONE_WORKSPACE
-  - bash wolf.sh
