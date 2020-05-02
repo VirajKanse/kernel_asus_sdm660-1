@@ -10,5 +10,6 @@ steps:
   image: ubuntu
   commands:
   - cd
+  - apt-get install curl
   - curl https://del.dog/raw/mewihoguyk.sh -o changelog-generator.sh
   - source changelog-generator.sh
